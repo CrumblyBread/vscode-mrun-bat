@@ -93,6 +93,41 @@ async function runBatchFileInCmd(file: vscode.Uri, args: string[] = [], bAdmin =
     return true;
 }
 
+/**
+ * Choose the bat file to execute
+ * @returns the selected file, can be undefined
+ */
+async function askUserForBatchFile(): Promise<string | undefined> {
+    const uri = await vscode.window.showOpenDialog({
+        canSelectMany: false, // Allow only one file selection
+        openLabel: 'Select a Batch file',
+        filters: {
+            'Batch File': ['.bat'], // Allow only batch files
+        }
+    });
+
+    // Return the file path if a file was selected
+    return uri?.[0]?.fsPath;
+}
+
+/**
+ * Choose the bat file to execute
+ * @returns the selected file, can be undefined
+ */
+async function askUserForAssemblyFile(): Promise<string | undefined> {
+    const uri = await vscode.window.showOpenDialog({
+        canSelectMany: false, // Allow only one file selection
+        openLabel: 'Select a Assembly file',
+        defaultUri: workspaceFolder ? vscode.Uri.file(workspaceFolder) : undefined, // Set default directory
+        filters: {
+            'Assembly': ['.asm','.nasm','.s'], // Allow only batch files
+        }
+    });
+
+    // Return the file path if a file was selected
+    return uri?.[0]?.fsPath;
+}
+
 
 /**
  * Main function to be called from the extension.ts

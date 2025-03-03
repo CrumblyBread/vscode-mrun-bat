@@ -3,40 +3,45 @@ import * as vscode from 'vscode';
 import * as execute from './execute';
 import * as batchArgs from './arguments';
 
+let batFilePath: string;
+batFilePath = ""
+let asmFilePath: string;
+asmFilePath = ""
+let runArgs: any;
+runArgs = ""
+
 export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('batch-runner.execBatchFile', (uri?: vscode.Uri): Promise<boolean> => {
-			const filepath = uri || vscode.window.activeTextEditor?.document.uri;
-			if (!filepath)
+		vscode.commands.registerCommand('mrun-bat.execBatchFile', () => {
+			if (batFilePath == "")
 				throw new Error('No file path provided');
 
-			return execute.runBatchFile(filepath, [], false);
+			return execute.runBatchFile(batFilePath, runArgs, false);
 		})
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('batch-runner.execBatchFileArgs', async (uri?: vscode.Uri): Promise<boolean> => {
-			const filepath = uri || vscode.window.activeTextEditor?.document.uri;
-			if (!filepath)
-				throw new Error('No file path provided');
+		vscode.commands.registerCommand('mrun-bat.changeBatchFileArgs', async () => {
 
-			const argsToPass = await batchArgs.askForArguments(filepath);
+			const argsToPass = await batchArgs.askForArguments();
 			if (argsToPass !== undefined) {
-				return execute.runBatchFile(filepath, argsToPass, false);
+				runArgs = argsToPass;
 			}
-
-			return false;
 		})
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('batch-runner.execBatchFileAdmin', (uri?: vscode.Uri): Promise<boolean> => {
-			const filepath = uri || vscode.window.activeTextEditor?.document.uri;
-			if (!filepath)
-				throw new Error('No file path provided');
+		vscode.commands.registerCommand('mrun-bat.chooseBatchFile', async () => {
 
-			return execute.runBatchFile(filepath, [], true);
+			batFilePath = execute.askUserForBatchFile();
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('mrun-bat.chooseAssemblyFile', async (): Promise<boolean> => {
+
+			batFilePath = execute.askUserForAssemblyFile();
 		})
 	);
 }

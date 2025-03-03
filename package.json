@@ -1,12 +1,12 @@
 {
-	"name": "batch-runner",
-	"displayName": "Batch Runner",
-	"publisher": "NilsSoderman",
-	"description": "Run batch files in the VS Code terminal",
-	"version": "1.3.2",
+	"name": "mrun-bat",
+	"displayName": "mrun.bat Runner",
+	"publisher": "CrumblyBread",
+	"description": "Run a batch file in the VS Code terminal",
+	"version": "0.0.1",
 	"icon": "media/icon.png",
 	"qna": "marketplace",
-	"license": "SEE LICENSE IN LICENSE",
+	"license": "MIT Licence",
 	"keywords": [
 		"batch",
 		".bat",
@@ -14,8 +14,10 @@
 		"cmd",
 		"execute",
 		"run",
+		"mrun",
 		"menu",
-		"terminal"
+		"terminal",
+		"assembly"
 	],
 	"categories": [
 		"Other",
@@ -23,100 +25,107 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nils-soderman/vscode-batch-runner"
+		"url": "https://github.com/crumblybread/vscode-mrun-bat"
 	},
 	"bugs": {
-		"url": "https://github.com/nils-soderman/vscode-batch-runner/issues"
+		"url": "https://github.com/crumblybread/vscode-mrun-bat/issues"
 	},
 	"author": {
-		"name": "Nils Söderman",
-		"url": "https://nilssoderman.com"
+		"name": "CrumblyBread",
+		"url": "https://github.com/crumblybread"
 	},
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "batch-runner.execBatchFile",
-				"category": "Batch Runner",
-				"title": "Run",
-				"shortTitle": "Run bat File",
+				"command": "mrun-bat.execBatchFile",
+				"category": "MRun Runner",
+				"title": "MRun",
+				"shortTitle": "Run mrun.bat File",
 				"icon": "$(run)",
-				"enablement": "resourceLangId == bat && !isInDiffEditor && shellExecutionSupported"
+				"enablement": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
 			},
 			{
-				"command": "batch-runner.execBatchFileArgs",
-				"category": "Batch Runner",
-				"title": "Run with Arguments",
-				"shortTitle": "Run bat File w/ Args",
-				"icon": "$(debug-coverage)",
-				"enablement": "resourceLangId == bat && !isInDiffEditor && shellExecutionSupported"
+				"command": "mrun-bat.changeBatchFileArgs",
+				"category": "MRun Runner",
+				"title": "Change Arguments",
+				"shortTitle": "Change the arguments for running",
+				"icon": "$(comment-discussion)",
+				"enablement": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
 			},
 			{
-				"command": "batch-runner.execBatchFileAdmin",
-				"category": "Batch Runner",
-				"title": "Run as Administrator",
-				"shortTitle": "Run bat file as admin",
-				"icon": "$(run-above)",
-				"enablement": "resourceLangId == bat && !isInDiffEditor && shellExecutionSupported"
+				"command": "mrun-bat.chooseBatchFile",
+				"category": "MRun Runner",
+				"title": "Choose batch file",
+				"shortTitle": "Choose which bat file to run",
+				"icon": "$(folder)",
+				"enablement": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
+			},
+			{
+				"command": "mrun-bat.chooseAssemblyFile",
+				"category": "MRun Runner",
+				"title": "Choose assembly file",
+				"shortTitle": "Choose which assembly to compile",
+				"icon": "$(root-folder)",
+				"enablement": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
 			}
 		],
 		"keybindings": [
 			{
-				"command": "batch-runner.execBatchFile",
+				"command": "mrun-bat.execBatchFile",
 				"key": "F5",
-				"enablement": "resourceLangId == bat && !isInDiffEditor && shellExecutionSupported && !inDebugMode"
+				"enablement": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported && !inDebugMode"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
-					"command": "batch-runner.execBatchFile",
-					"alt": "batch-runner.execBatchFileAdmin",
-					"group": "batch",
-					"when": "resourceLangId == bat && shellExecutionSupported"
+					"command": "mrun-bat.execBatchFile",
+					"group": "assembly",
+					"when": "resourceLangId == nasm && shellExecutionSupported"
 				},
 				{
-					"command": "batch-runner.execBatchFileArgs",
-					"group": "batch",
-					"when": "resourceLangId == bat && shellExecutionSupported"
+					"command": "mrun-bat.chooseBatchFile",
+					"group": "assembly",
+					"when": "resourceLangId == nasm && shellExecutionSupported"
 				}
 			],
 			"editor/title/context": [
 				{
-					"command": "batch-runner.execBatchFile",
-					"alt": "batch-runner.execBatchFileAdmin",
-					"group": "batch",
-					"when": "resourceLangId == bat && shellExecutionSupported"
+					"command": "mrun-bat.execBatchFile",
+					"alt": "mrun-bat.execBatchFileAdmin",
+					"group": "assembly",
+					"when": "resourceLangId == nasm && shellExecutionSupported"
 				},
 				{
-					"command": "batch-runner.execBatchFileArgs",
-					"group": "batch",
-					"when": "resourceLangId == bat && shellExecutionSupported"
+					"command": "mrun-bat.chooseBatchFile",
+					"group": "assembly",
+					"when": "resourceLangId == nasm && shellExecutionSupported"
 				}
 			],
 			"editor/title/run": [
 				{
-					"command": "batch-runner.execBatchFile",
-					"group": "batch",
-					"when": "resourceLangId == bat && !isInDiffEditor && shellExecutionSupported"
+					"command": "mrun-bat.execBatchFile",
+					"group": "assembly",
+					"when": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
 				},
 				{
-					"command": "batch-runner.execBatchFileArgs",
-					"group": "batch",
-					"when": "resourceLangId == bat && shellExecutionSupported"
+					"command": "mrun-bat.changeBatchFileArgs",
+					"group": "assembly",
+					"when": "resourceLangId == nasm && shellExecutionSupported"
 				},
 				{
-					"command": "batch-runner.execBatchFileAdmin",
-					"group": "batch",
-					"when": "resourceLangId == bat && !isInDiffEditor && shellExecutionSupported"
+					"command": "mrun-bat.chooseBatchFile",
+					"group": "assembly",
+					"when": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
 				}
 			]
 		},
 		"configuration": [
 			{
-				"title": "Batch Runner",
+				"title": "MRun Runner",
 				"properties": {
-					"batch-runner.runBatchIn": {
+					"mrun-bat.runBatchIn": {
 						"type": "string",
 						"enum": [
 							"Terminal",
@@ -130,13 +139,13 @@
 						"description": "Where the batch file should be executed",
 						"scope": "resource"
 					},
-					"batch-runner.cmdPath": {
+					"mrun-bat.cmdPath": {
 						"type": "string",
 						"default": "C:\\windows\\System32\\cmd.exe",
 						"description": "Path to where 'cmd.exe' is located",
 						"scope": "machine"
 					},
-					"batch-runner.saveFileBeforeRun": {
+					"mrun-bat.saveFileBeforeRun": {
 						"type": "boolean",
 						"default": true,
 						"scope": "resource",
@@ -149,7 +158,7 @@
 	"capabilities": {
 		"virtualWorkspaces": {
 			"supported": false,
-			"description": "Batch runner does currently not support virtual workspaces. Because it needs to have the files on disk to execute them."
+			"description": "MRun runner does currently not support virtual workspaces. Because it needs to have the files on disk to execute them."
 		}
 	},
 	"scripts": {

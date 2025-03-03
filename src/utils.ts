@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import * as childProcess from 'child_process';
 import * as path from 'path';
 
-const EXTENSION_CONFIG_NAME = "batch-runner";
+const EXTENSION_CONFIG_NAME = "mrun-bat";
 const CMD_PATH_CONFIG_KEY = "cmdPath";
 
 
