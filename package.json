@@ -34,6 +34,7 @@
 		"name": "CrumblyBread",
 		"url": "https://github.com/crumblybread"
 	},
+	"activationEvents": [],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
@@ -172,11 +173,13 @@
 		"@typescript-eslint/parser": "^7.16.1",
 		"@vscode/test-cli": "^0.0.10",
 		"@vscode/test-electron": "^2.4.1",
-		"electron": "^34.3.0",
 		"esbuild": "^0.25.0",
 		"eslint": "^8.56.0",
 		"mocha": "^10.6.1",
 		"sinon": "^18.0.0",
 		"typescript": "^5.8.2"
+	},
+	"dependencies": {
+		"electron": "^35.0.0"
 	}
 }

@@ -4,6 +4,7 @@
 .vscode-test/**
 .vscode-test.*
 out/**
+!out/extension.js
 
 test/**
 
