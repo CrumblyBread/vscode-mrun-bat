@@ -1,23 +1,19 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "ES2022",
-		"outDir": "out", // This will only be used for tests, esbuild uses folder dist/
-		"lib": [
-			"ES2022"
-		],
-		"sourceMap": true,
-		"rootDir": "src",
-		"strict": true,
-		"removeComments": true,
-		"esModuleInterop": true
-		/* Additional Checks */
-		// "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
-		// "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
-		// "noUnusedParameters": true,  /* Report errors on unused parameters. */
+		"module": "commonjs",          // CommonJS for Node.js
+		"target": "ES2022",            // ES2022 allows for modern JavaScript features
+		"outDir": "out",               // Compiled files go to the 'out' directory (not used by esbuild)
+		"lib": ["ES2022"],             // Use modern JavaScript features
+		"sourceMap": true,             // Enable source maps for debugging
+		"rootDir": "src",              // The source directory
+		"strict": true,                // Enable strict type-checking
+		"removeComments": true,        // Remove comments from compiled JavaScript
+		"esModuleInterop": true,       // Enable interop with CommonJS modules
+		"resolveJsonModule": true,     // Allow importing JSON files
+		"skipLibCheck": true           // Skip library type checks for faster builds
 	},
 	"exclude": [
-		"node_modules",
-		".vscode-test"
+		"node_modules",               // Exclude the 'node_modules' directory
+		".vscode-test"                 // Exclude any test folder (if applicable)
 	]
 }

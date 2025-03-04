@@ -34,7 +34,7 @@
 		"name": "CrumblyBread",
 		"url": "https://github.com/crumblybread"
 	},
-	"main": "./dist/extension.js",
+	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
@@ -59,14 +59,6 @@
 				"title": "Choose batch file",
 				"shortTitle": "Choose which bat file to run",
 				"icon": "$(folder)",
-				"enablement": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
-			},
-			{
-				"command": "mrun-bat.chooseAssemblyFile",
-				"category": "MRun Runner",
-				"title": "Choose assembly file",
-				"shortTitle": "Choose which assembly to compile",
-				"icon": "$(root-folder)",
 				"enablement": "resourceLangId == nasm && !isInDiffEditor && shellExecutionSupported"
 			}
 		],
@@ -93,7 +85,6 @@
 			"editor/title/context": [
 				{
 					"command": "mrun-bat.execBatchFile",
-					"alt": "mrun-bat.execBatchFileAdmin",
 					"group": "assembly",
 					"when": "resourceLangId == nasm && shellExecutionSupported"
 				},
@@ -178,13 +169,14 @@
 		"@types/sinon": "^17.0.3",
 		"@types/vscode": "^1.91.0",
 		"@typescript-eslint/eslint-plugin": "^7.16.1",
-		"@typescript-eslint/parser": "^7.16.1",		
-		"@vscode/test-electron": "^2.4.1",
+		"@typescript-eslint/parser": "^7.16.1",
 		"@vscode/test-cli": "^0.0.10",
+		"@vscode/test-electron": "^2.4.1",
+		"electron": "^34.3.0",
 		"esbuild": "^0.25.0",
 		"eslint": "^8.56.0",
 		"mocha": "^10.6.1",
 		"sinon": "^18.0.0",
-		"typescript": "^5.5.4"
+		"typescript": "^5.8.2"
 	}
 }

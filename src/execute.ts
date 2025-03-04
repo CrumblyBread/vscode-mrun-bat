@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as utils from './utils';
 
 
-const TERMINAL_NAME = "Batch Runner Terminal";
+const TERMINAL_NAME = "MRun Runner Terminal";
 
 
 /**
@@ -55,7 +55,11 @@ async function runBatchFileInTerminal(file: vscode.Uri, args: string[] = []): Pr
     const filepath = file.fsPath;
     const workingDirectory = path.dirname(filepath);
 
-    const command = `cls & cd /d "${workingDirectory}" & "${filepath}" ${args.join(" ")}`;
+    if (!Array.isArray(args)) {
+        args = [];
+    }
+
+    const command = `cls & cd /d "${workingDirectory}" & "${filepath}" ${args.join()}`;
     terminal.sendText(command, true);
     terminal.show();
 
@@ -97,35 +101,17 @@ async function runBatchFileInCmd(file: vscode.Uri, args: string[] = [], bAdmin =
  * Choose the bat file to execute
  * @returns the selected file, can be undefined
  */
-async function askUserForBatchFile(): Promise<string | undefined> {
+export async function askUserForBatchFile() {
     const uri = await vscode.window.showOpenDialog({
         canSelectMany: false, // Allow only one file selection
         openLabel: 'Select a Batch file',
         filters: {
-            'Batch File': ['.bat'], // Allow only batch files
+            'Batch File': ['bat'], // Allow only batch files
         }
     });
 
     // Return the file path if a file was selected
-    return uri?.[0]?.fsPath;
-}
-
-/**
- * Choose the bat file to execute
- * @returns the selected file, can be undefined
- */
-async function askUserForAssemblyFile(): Promise<string | undefined> {
-    const uri = await vscode.window.showOpenDialog({
-        canSelectMany: false, // Allow only one file selection
-        openLabel: 'Select a Assembly file',
-        defaultUri: workspaceFolder ? vscode.Uri.file(workspaceFolder) : undefined, // Set default directory
-        filters: {
-            'Assembly': ['.asm','.nasm','.s'], // Allow only batch files
-        }
-    });
-
-    // Return the file path if a file was selected
-    return uri?.[0]?.fsPath;
+    return uri?.[0];
 }
 
 

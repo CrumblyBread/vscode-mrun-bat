@@ -3,10 +3,7 @@ import * as vscode from 'vscode';
 import * as execute from './execute';
 import * as batchArgs from './arguments';
 
-let batFilePath: string;
-batFilePath = ""
-let asmFilePath: string;
-asmFilePath = ""
+let batFilePath: vscode.Uri;
 let runArgs: any;
 runArgs = ""
 
@@ -14,7 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('mrun-bat.execBatchFile', () => {
-			if (batFilePath == "")
+			if (batFilePath == undefined)
 				throw new Error('No file path provided');
 
 			return execute.runBatchFile(batFilePath, runArgs, false);
@@ -34,14 +31,11 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('mrun-bat.chooseBatchFile', async () => {
 
-			batFilePath = execute.askUserForBatchFile();
-		})
-	);
+			const result = await execute.askUserForBatchFile();
 
-	context.subscriptions.push(
-		vscode.commands.registerCommand('mrun-bat.chooseAssemblyFile', async (): Promise<boolean> => {
-
-			batFilePath = execute.askUserForAssemblyFile();
+			if(result){
+				batFilePath = result
+			}
 		})
 	);
 }
